@@ -1,16 +1,17 @@
-# 📡 Morse Code Translator
-![Morse Code](https://img.shields.io/badge/Morse-Code-blue.svg)
+# Morse Code Translator
 
-A simple and effective Java tool for translating texts into Morse code and vice versa.
+[![Morse Code](https://img.shields.io/badge/Morse-Code-blue.svg)](https://en.wikipedia.org/wiki/Morse_code)
 
-## ✨ Features
+A simple and effective tool for translating text to Morse code and vice versa.
 
-- 🔄 Convert English text to Morse code
-- 🔄 Decode Morse code back to English text
-- 📝 Supports standard Morse code characters (A-Z, 0-9, punctuation)
-- 🖥️ User-friendly interface
+## Features
 
-## 🚀 Quick Start
+- Convert English text to Morse code
+- Decode Morse code back to English text
+- Support for standard Morse code characters (A-Z, 0-9, punctuation)
+- User-friendly interface
+
+## Installation
 
 ```bash
 # Clone the repository
@@ -23,7 +24,7 @@ cd morse-code-translator
 mvn compile exec:java
 ```
 
-## 📝 Example Usage
+## Usage
 
 ```
 Text to Morse: HELLO WORLD
@@ -33,6 +34,10 @@ Morse to Text: ... --- ...
 Output: SOS
 ```
 
-## 👨‍💻 Author
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Author
 
 Mohammad - [GitHub](https://github.com/1M7md-CS)
