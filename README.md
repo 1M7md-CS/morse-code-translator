@@ -1,15 +1,26 @@
 # Morse Code Translator
 
 [![Morse Code](https://img.shields.io/badge/Morse-Code-blue.svg)](https://en.wikipedia.org/wiki/Morse_code)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Java](https://img.shields.io/badge/Java-24-red.svg)](https://www.oracle.com/java/)
+[![GitHub issues](https://img.shields.io/github/issues/1M7md-CS/morse-code-translator)](https://github.com/1M7md-CS/morse-code-translator/issues)
 
 A simple and effective tool for translating text to Morse code and vice versa.
+
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Author](#author)
 
 ## Features
 
 - Convert English text to Morse code
 - Decode Morse code back to English text
 - Support for standard Morse code characters (A-Z, 0-9, punctuation)
-- User-friendly interface
+- User-friendly command-line interface
+- Input validation to ensure proper format
 
 ## Installation
 
@@ -36,7 +47,7 @@ Output: SOS
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Author
 
