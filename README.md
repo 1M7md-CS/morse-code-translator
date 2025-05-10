@@ -55,4 +55,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author
 
-Mohammad - [GitHub](https://github.com/1M7md-CS)
+Mohammad Hammad - [GitHub](https://github.com/1M7md-CS)
