@@ -1,14 +1,12 @@
 package com.translator.core;
 
-import com.translator.checker.Checker;
+import com.translator.validator.MorseInputValidator;
 import com.translator.dictionary.MorseCodeDictionary;
 
 public class Translator {
 
 	public static String translateEnglishToMorse(String input) {
-		if (!Checker.isValidEnglishInput(input)) {
-			throw new IllegalArgumentException("Invalid English input.");
-		}
+		MorseInputValidator.validateEnglishInput(input);
 
 		input = input.trim().toUpperCase();
 
@@ -32,9 +30,8 @@ public class Translator {
 	}
 
 	public static String translateMorseToEnglish(String input) {
-		if (!Checker.isValidMorseInput(input)) {
-			throw new IllegalArgumentException("Invalid Morse code input.");
-		}
+		MorseInputValidator.validateMorseInput(input);
+
 
 		String[] morseWords = input.split("\\s*/\\s*");
 		StringBuilder builder = new StringBuilder();

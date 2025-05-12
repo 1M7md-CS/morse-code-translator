@@ -56,7 +56,6 @@ public abstract class MorseCodeDictionary {
 		ENGLISH_TO_MORSE_MAP.put('.', ".-.-.-");
 		ENGLISH_TO_MORSE_MAP.put(':', "---...");
 		ENGLISH_TO_MORSE_MAP.put('-', "-....-");
-		ENGLISH_TO_MORSE_MAP.put('?', "..--..");
 		ENGLISH_TO_MORSE_MAP.put('!', "-.-.--");
 		ENGLISH_TO_MORSE_MAP.put('@', ".--.-.");
 		ENGLISH_TO_MORSE_MAP.put('&', ".-...");
