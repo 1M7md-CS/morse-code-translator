@@ -39,39 +39,37 @@ public abstract class CLIHandler {
 	private static void handleUserChoice(int choice) {
 		try {
 			switch (choice) {
-				case OPTION_ENGLISH_TO_MORSE -> handleEnglishToMorse();
-				case OPTION_MORSE_TO_ENGLISH -> handleMorseToEnglish();
+				case OPTION_ENGLISH_TO_MORSE -> handleConvert("English");
+				case OPTION_MORSE_TO_ENGLISH -> handleConvert("Morse");
 				case OPTION_SHOW_SUPPORTED_CHARACTERS -> showSupportedCharacters();
 				case OPTION_HELP -> displayHelp();
 				case OPTION_EXIT -> isRunning = false;
-				default ->
-						System.out.println(ConsoleColors.ERROR_COLOR + "Invalid option. Please enter a number from 1 to 5." + ConsoleColors.RESET);
+				default -> System.out.println(ConsoleColors.ERROR_COLOR + "Invalid option. Please enter a number from 1 to 5." + ConsoleColors.RESET);
 			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(ConsoleColors.ERROR_COLOR + e.getMessage() + ConsoleColors.RESET);
 		}
 	}
 
-	private static void handleEnglishToMorse() {
+	private static void handleConvert(String choice) {
 		try {
-			System.out.print(ConsoleColors.INPUT_COLOR + "Enter English text: " + ConsoleColors.RESET);
-			String english = reader.readLine();
-			String result = Translator.translateEnglishToMorse(english);
-			System.out.println(ConsoleColors.OUTPUT_COLOR + "Morse Code: " + ConsoleColors.RESET + result);
-		} catch (IOException ioEx) {
-			System.out.println(ConsoleColors.ERROR_COLOR + ioEx.getMessage() + ConsoleColors.RESET);
-		}
-	}
 
-	private static void handleMorseToEnglish() {
-		try {
-			System.out.print(ConsoleColors.INPUT_COLOR + "Enter Morse code: " + ConsoleColors.RESET);
-			String morse = reader.readLine();
-			String result = Translator.translateMorseToEnglish(morse);
-			System.out.println(ConsoleColors.OUTPUT_COLOR + "English Text: " + ConsoleColors.RESET + result);
+			if (choice.equalsIgnoreCase("English")) {
+				System.out.print(ConsoleColors.INPUT_COLOR + "Enter English text: " + ConsoleColors.RESET);
+				String english = reader.readLine();
+				String result = Translator.translateEnglishToMorse(english);
+				System.out.println(ConsoleColors.OUTPUT_COLOR + "Morse Code: " + ConsoleColors.RESET + result);
 
-		} catch (IOException ioEx) {
-			System.out.println(ConsoleColors.ERROR_COLOR + ioEx.getMessage() + ConsoleColors.RESET);
+			} else if (choice.equalsIgnoreCase("Morse")) {
+				System.out.print(ConsoleColors.INPUT_COLOR + "Enter Morse code: " + ConsoleColors.RESET);
+				String morse = reader.readLine();
+				String result = Translator.translateMorseToEnglish(morse);
+				System.out.println(ConsoleColors.OUTPUT_COLOR + "English Text: " + ConsoleColors.RESET + result);
+
+			}
+
+		} catch (IOException e) {
+			System.out.println(ConsoleColors.ERROR_COLOR + e.getMessage() + ConsoleColors.RESET);
 		}
 	}
 
