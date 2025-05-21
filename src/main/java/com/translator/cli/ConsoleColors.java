@@ -23,9 +23,6 @@ public class ConsoleColors {
 	public static final String OUTPUT_COLOR = LIGHT_GREEN;
 	public static final String ERROR_COLOR = BRIGHT_RED + BOLD;
 	public static final String EXIT_COLOR = BRIGHT_YELLOW + BOLD;
-	public static final String HELP_COLOR = WHITE + BOLD;
-	public static final String HELP_TITLE_COLOR = DARK_BLUE + BOLD;
-	public static final String SUPPORTED_CHARACTERS = WHITE + BOLD;
 
 
 }

@@ -23,14 +23,14 @@ public abstract class CLIHandler {
 
 		while (isRunning) {
 			displayMenu();
-			int choice = getUserChoice();
-			handleUserChoice(choice);
+			handleUserChoice(getUserChoice());
 
 			if (isRunning) {
 				System.out.println();
 				promptEnterKey();
 			}
 		}
+
 		displayExitMessage();
 		closeBufferedReader();
 
