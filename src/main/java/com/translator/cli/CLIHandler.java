@@ -3,37 +3,12 @@ package com.translator.cli;
 import com.translator.core.Translator;
 import com.translator.dictionary.MorseCodeDictionary;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public abstract class CLIHandler {
-
-	private static final String RESET = "\u001B[0m";
-	private static final String BOLD = "\u001B[1m";
-
-	private static final String WHITE = "\u001B[37m";
-	private static final String LIGHT_BLUE = "\u001B[96m";
-	private static final String LIGHT_PURPLE = "\u001B[95m";
-	private static final String LIGHT_GREEN = "\u001B[92m";
-	private static final String LIGHT_CYAN = "\u001B[96m";
-	private static final String LIGHT_GRAY = "\u001B[37m";
-	private static final String BRIGHT_YELLOW = "\u001B[93m";
-	private static final String BRIGHT_RED = "\u001B[91m";
-	private static final String DARK_GRAY = "\u001B[90m";
-	private static final String DARK_BLUE = "\u001B[94m";
-	private static final String OLIVE_GREEN = "\u001B[32m";
-
-	private static final String FRAME_COLOR = LIGHT_GRAY;
-	private static final String TITLE_COLOR = LIGHT_BLUE + BOLD;
-	private static final String OPTION_COLOR = LIGHT_PURPLE;
-	private static final String INPUT_COLOR = LIGHT_CYAN;
-	private static final String OUTPUT_COLOR = LIGHT_GREEN;
-	private static final String ERROR_COLOR = BRIGHT_RED + BOLD;
-	private static final String EXIT_COLOR = BRIGHT_YELLOW + BOLD;
-	private static final String HELP_COLOR = WHITE + BOLD;
-	private static final String HELP_TITLE_COLOR = DARK_BLUE + BOLD;
-
 
 	private static final int OPTION_ENGLISH_TO_MORSE = 1;
 	private static final int OPTION_MORSE_TO_ENGLISH = 2;
@@ -70,33 +45,33 @@ public abstract class CLIHandler {
 				case OPTION_HELP -> displayHelp();
 				case OPTION_EXIT -> isRunning = false;
 				default ->
-						System.out.println(ERROR_COLOR + "Invalid option. Please enter a number from 1 to 5." + RESET);
+						System.out.println(ConsoleColors.ERROR_COLOR + "Invalid option. Please enter a number from 1 to 5." + ConsoleColors.RESET);
 			}
 		} catch (IllegalArgumentException e) {
-			System.out.println(ERROR_COLOR + e.getMessage() + RESET);
+			System.out.println(ConsoleColors.ERROR_COLOR + e.getMessage() + ConsoleColors.RESET);
 		}
 	}
 
 	private static void handleEnglishToMorse() {
 		try {
-			System.out.print(INPUT_COLOR + "Enter English text: " + RESET);
+			System.out.print(ConsoleColors.INPUT_COLOR + "Enter English text: " + ConsoleColors.RESET);
 			String english = reader.readLine();
 			String result = Translator.translateEnglishToMorse(english);
-			System.out.println(OUTPUT_COLOR + "Morse Code: " + RESET + result);
+			System.out.println(ConsoleColors.OUTPUT_COLOR + "Morse Code: " + ConsoleColors.RESET + result);
 		} catch (IOException ioEx) {
-			System.out.println(ERROR_COLOR + ioEx.getMessage() + RESET);
+			System.out.println(ConsoleColors.ERROR_COLOR + ioEx.getMessage() + ConsoleColors.RESET);
 		}
 	}
 
 	private static void handleMorseToEnglish() {
 		try {
-			System.out.print(INPUT_COLOR + "Enter Morse code: " + RESET);
+			System.out.print(ConsoleColors.INPUT_COLOR + "Enter Morse code: " + ConsoleColors.RESET);
 			String morse = reader.readLine();
 			String result = Translator.translateMorseToEnglish(morse);
-			System.out.println(OUTPUT_COLOR + "English Text: " + RESET + result);
+			System.out.println(ConsoleColors.OUTPUT_COLOR + "English Text: " + ConsoleColors.RESET + result);
 
 		} catch (IOException ioEx) {
-			System.out.println(ERROR_COLOR + ioEx.getMessage() + RESET);
+			System.out.println(ConsoleColors.ERROR_COLOR + ioEx.getMessage() + ConsoleColors.RESET);
 		}
 	}
 
@@ -120,44 +95,29 @@ public abstract class CLIHandler {
 
 		String title = "MORSE CODE TRANSLATOR - Supported English Characters";
 		String[] lines = {
-				WHITE + BOLD + "Letters: " + letters.toString() + RESET,
-				WHITE + BOLD + "Numbers: " + numbers.toString() + RESET,
-				WHITE + BOLD + "Symbols: " + symbols.toString() + RESET
+				"Letters: " + letters.toString(),
+				"Numbers: " + numbers.toString(),
+				"Symbols: " + symbols.toString()
 		};
 
-		int maxLen = title.length();
-		for (String line : lines) {
-			maxLen = Math.max(maxLen, line.replaceAll("\u001B\\[[;\\d]*m", "").length());
-		}
-		maxLen = Math.max(maxLen, 40);
-
-		System.out.println(DARK_GRAY + "┌" + "─".repeat(maxLen + 4) + "┐" + RESET);
-		System.out.println(DARK_GRAY + "│ " + DARK_BLUE + BOLD + centerText(title, maxLen + 2) + RESET + " " + DARK_GRAY + "│" + RESET);
-		System.out.println(DARK_GRAY + "├" + "─".repeat(maxLen + 4) + "┤" + RESET);
-
-		for (String line : lines) {
-			String plainLine = line.replaceAll("\u001B\\[[;\\d]*m", "");
-			System.out.println(DARK_GRAY + "│  " + RESET + line + " ".repeat(maxLen - plainLine.length()) + "  " + DARK_GRAY + "│" + RESET);
-		}
-
-		System.out.println(DARK_GRAY + "└" + "─".repeat(maxLen + 4) + "┘" + RESET);
+		int longestLineLength = getLongestLineLength(title, lines);
+		Frame.printMenuFrame(title, lines, longestLineLength,6);
 
 	}
 
-
 	private static int getUserChoice() {
 		while (true) {
-			System.out.print(INPUT_COLOR + "Choose an option (1-5): " + RESET);
+			System.out.print(ConsoleColors.INPUT_COLOR + "Choose an option (1-5): " + ConsoleColors.RESET);
 			try {
 				String input = reader.readLine().trim();
 				int choice = Integer.parseInt(input);
 				if (choice >= 1 && choice <= 5) {
 					return choice;
 				} else {
-					System.out.println(ERROR_COLOR + "Invalid option. Please enter a number from 1 to 5." + RESET);
+					System.out.println(ConsoleColors.ERROR_COLOR + "Invalid option. Please enter a number from 1 to 5." + ConsoleColors.RESET);
 				}
 			} catch (NumberFormatException | IOException e) {
-				System.out.println(ERROR_COLOR + "Please enter a valid number." + RESET);
+				System.out.println(ConsoleColors.ERROR_COLOR + "Please enter a valid number." + ConsoleColors.RESET);
 			}
 		}
 	}
@@ -173,104 +133,70 @@ public abstract class CLIHandler {
 				"5. Exit"
 		};
 
-		int width = title.length();
-		for (String opt : options) {
-			width = Math.max(width, opt.length());
-		}
-		width = Math.max(width, 30);
+		int longestLineLength = getLongestLineLength(title, options);
+		Frame.printMenuFrame(title, options, longestLineLength,6);
 
-		printFrame(title, options, width);
-	}
 
-	private static void printFrame(String title, String[] options, int width) {
-		System.out.println(FRAME_COLOR + "╔" + "═".repeat(width + 6) + "╗" + RESET);
-		System.out.println(FRAME_COLOR + "║" + RESET + "   " + TITLE_COLOR + centerText(title, width) + RESET + "   " + FRAME_COLOR + "║" + RESET);
-		System.out.println(FRAME_COLOR + "╠" + "═".repeat(width + 6) + "╣" + RESET);
-
-		for (String opt : options) {
-			System.out.println(FRAME_COLOR + "║" + RESET + "   " + OPTION_COLOR + opt + RESET + " ".repeat(width - opt.length()) + "   " + FRAME_COLOR + "║" + RESET);
-		}
-
-		System.out.println(FRAME_COLOR + "╚" + "═".repeat(width + 6) + "╝" + RESET);
 	}
 
 	private static void displayHelp() {
 		String title = "MORSE CODE TRANSLATOR - HELP GUIDE";
 		String[] lines = {
-
-				HELP_TITLE_COLOR + "English -> Morse:" + RESET,
-				HELP_COLOR + "- Converts letters, numbers, and common symbols to Morse code" + RESET,
-				HELP_COLOR + "- Spaces between letters are represented by spaces" + RESET,
-				HELP_COLOR + "- Words are separated by '/' in Morse code" + RESET,
+				"English -> Morse:",
+				"- Converts letters, numbers, and common symbols to Morse code",
+				"- Spaces between letters are represented by spaces",
+				"- Words are separated by '/' in Morse code",
 				"",
-
-				HELP_TITLE_COLOR + "Morse -> English:" + RESET,
-				HELP_COLOR + "- Use dots (.) and dashes (-) for Morse code symbols" + RESET,
-				HELP_COLOR + "- Use space between letters and '/' between words" + RESET,
-				OLIVE_GREEN + BOLD +  "- Example: \".... . .-.. .-.. --- / .-- --- .-. .-.. -..\" → \"HELLO WORLD\"" + RESET,
+				"Morse -> English:",
+				"- Use dots (.) and dashes (-) for Morse code symbols",
+				"- Use space between letters and '/' between words",
+				"- Example: \".... . .-.. .-.. --- / .-- --- .-. .-.. -..\" → \"HELLO WORLD\"",
 				"",
-
-				HELP_TITLE_COLOR + "Tips:" + RESET,
-				HELP_COLOR + "- Input is case-insensitive for English" + RESET,
-				HELP_COLOR + "- Invalid characters will generate an error message" + RESET,
+				"Tips:",
+				"- Input is case-insensitive for English",
+				"- Invalid characters will generate an error message"
 		};
 
-		int maxLen = title.length();
-		for (String line : lines) {
-			maxLen = Math.max(maxLen, line.replaceAll("\u001B\\[[;\\d]*m", "").length());
-		}
-		maxLen = Math.max(maxLen, 40);
-
-		System.out.println(DARK_GRAY + "┌" + "─".repeat(maxLen + 4) + "┐" + RESET);
-		System.out.println(DARK_GRAY + "│ " + DARK_BLUE + BOLD + centerText(title, maxLen + 2) + RESET + " " + DARK_GRAY + "│" + RESET);
-		System.out.println(DARK_GRAY + "├" + "─".repeat(maxLen + 4) + "┤" + RESET);
-
-		for (String line : lines) {
-			String plainLine = line.replaceAll("\u001B\\[[;\\d]*m", "");
-			System.out.println(DARK_GRAY + "│  " + RESET + line + " ".repeat(maxLen - plainLine.length()) + "  " + DARK_GRAY + "│" + RESET);
-		}
-
-		System.out.println(DARK_GRAY + "└" + "─".repeat(maxLen + 4) + "┘" + RESET);
+		int longestLineLength = getLongestLineLength(title, lines);
+		Frame.printMenuFrame(title, lines, longestLineLength,6);
 	}
 
 	private static void displayExitMessage() {
-		String message = "Thank you for using the Morse Code Translator!";
-		int width = message.length();
-		width = Math.max(width, 40);
+		String exitMessage = "Thank you for using the Morse Code Translator!";
 
-		System.out.println(FRAME_COLOR + "╔" + "═".repeat(width + 4) + "╗" + RESET);
-		System.out.println(FRAME_COLOR + "║  " + EXIT_COLOR + centerText(message, width) + FRAME_COLOR + "  ║" + RESET);
-		System.out.println(FRAME_COLOR + "╚" + "═".repeat(width + 4) + "╝" + RESET);
-	}
+		Frame.printExitFrame(exitMessage, 6);
 
-	private static String centerText(String text, int width) {
-		if (text.length() >= width) {
-			return text;
-		}
-		int padding = (width - text.length()) / 2;
-		return " ".repeat(padding) + text + " ".repeat(width - padding - text.length());
 	}
 
 	private static void promptEnterKey() {
-
 		try {
-
-			System.out.print(INPUT_COLOR + "Press ENTER to continue..." + RESET);
+			System.out.print(ConsoleColors.INPUT_COLOR + "Press ENTER to continue..." + ConsoleColors.RESET);
 			reader.readLine();
-
-		} catch (IOException ioEx) {
-			System.out.println(ERROR_COLOR + ioEx.getMessage() + RESET);
+		} catch (IOException e) {
+			System.out.println(ConsoleColors.ERROR_COLOR + e.getMessage() + ConsoleColors.RESET);
 		}
-
 	}
 
 	private static void closeBufferedReader() {
 		try {
 			reader.close();
 		} catch (IOException e) {
-			System.out.println(ERROR_COLOR + e.getMessage() + RESET);
+			System.out.println(ConsoleColors.ERROR_COLOR + e.getMessage() + ConsoleColors.RESET);
 		}
 
 	}
+
+	private static int getLongestLineLength(String title, String[] lines){
+
+		int longestLineLength = title.length();
+
+		for (String line : lines){
+			longestLineLength = Math.max(longestLineLength, line.length());
+		}
+
+		return longestLineLength;
+
+	}
+
 
 }
