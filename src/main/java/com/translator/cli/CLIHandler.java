@@ -93,12 +93,12 @@ public abstract class CLIHandler {
 
 		String title = "MORSE CODE TRANSLATOR - Supported English Characters";
 		String[] lines = {
-				"Letters: " + letters.toString(),
-				"Numbers: " + numbers.toString(),
-				"Symbols: " + symbols.toString()
+				"Letters: " + letters,
+				"Numbers: " + numbers,
+				"Symbols: " + symbols
 		};
 
-		int longestLineLength = getLongestLineLength(title, lines);
+		int longestLineLength = Frame.getLongestLineLength(title, lines);
 		Frame.printMenuFrame(title, lines, longestLineLength,6);
 
 	}
@@ -131,7 +131,7 @@ public abstract class CLIHandler {
 				"5. Exit"
 		};
 
-		int longestLineLength = getLongestLineLength(title, options);
+		int longestLineLength = Frame.getLongestLineLength(title, options);
 		Frame.printMenuFrame(title, options, longestLineLength,6);
 
 
@@ -155,7 +155,7 @@ public abstract class CLIHandler {
 				"- Invalid characters will generate an error message"
 		};
 
-		int longestLineLength = getLongestLineLength(title, lines);
+		int longestLineLength = Frame.getLongestLineLength(title, lines);
 		Frame.printMenuFrame(title, lines, longestLineLength,6);
 	}
 
@@ -184,17 +184,6 @@ public abstract class CLIHandler {
 
 	}
 
-	private static int getLongestLineLength(String title, String[] lines){
-
-		int longestLineLength = title.length();
-
-		for (String line : lines){
-			longestLineLength = Math.max(longestLineLength, line.length());
-		}
-
-		return longestLineLength;
-
-	}
 
 
 }
